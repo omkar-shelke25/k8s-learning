@@ -8,9 +8,45 @@
 
 ---
 
+### Lifecycle of Sidecar
+- One important requirement of a sidecar is that its lifecycle has to be tightly coupled with the main application’s lifecycle. In other words, the sidecar container should startup, shut down, and scale with the main container.
+
+- The sidecar will only serve the main application, and its lifecycle starts and ends with the main application’s lifecycle.
+
+--- 
+### Communication Between Containers
+- The containers within a single pod share the network namespace. Therefore, the sidecar container can communicate with the main application container through localhost. One downside is that the sidecar container and the main application container must not listen on the same port. This is because only a single process can listen to the same port on the same network namespace.
+
+- Another way for the sidecar container to interact with the main application container is by writing to the same volume. One way to share volume between containers in the same pod is by using the emptyDir volume. The emptyDir volume is created when a pod is created, and all the containers within the same pod can read from and write to that volume. However, the content of the emptyDir is ephemeral by nature and is erased when the pod is deleted.
+
+- For example, we can run a log shipper container alongside our main application container. The main application container will write the logs to the emptyDir volume and the log shipper container will tail the logs and ship them to a remote target.
+
+
+---
+
+### Lifecycle Issue of a Sidecar Container
+There are some caveats we have to take note of when implementing a sidecar container in Kubernetes. Specifically, the issues stem from the fact that Kubernetes doesn’t differentiate between containers in the pod. In other words, there’s no concept of primary or secondary containers in the Kubernetes perspective.
+
+#### Non-Sequential Starting Order
+- **When a pod starts, the kubelet process starts all the containers concurrently. Additionally, we cannot control the sequence of containers starting.** For cases that require the sidecar container to be ready first before the main application container, this can be problematic. Some workarounds include adding a custom delay timer on the main application container to delay its starting. However, the best solution is to design the containers to be independent of the starting sequence.
+
+- If we require some initialization work prior to the main application starting, we should use the initContainers. This is because they are different from the normal containers in that they’ll always run to completion first before Kubernetes starts the main containers.
+
+#### Preventing a Job From Completion
+- The Job object in Kubernetes is a specialized workload that is similar to a Deployment. However, one crucial difference is that the expectation of a Job object is to run to completion.
+
+- **If we add a long-running sidecar container, the Job object will never reach the completion state.** This is because Kubernetes will only consider a Job as complete when all of its containers exit with a zero exit code.
+
+- Besides that, it will also cause a Job that configures the deadline using the activeDeadlineSeconds property to timeout and restart. This can be problematic if we have a process that depends on the completion state of the Job object.
+
+- **One solution is to extend the main application container in the Job to send a SIGTERM to the sidecar containers prior to exit**. This can ensure that the sidecar container will shut down when the main application exits, completing the Job object.
+
+
+
 #### Kubernetes Manifest Example
 
 ```yaml
+# writing to the same volume
 apiVersion: v1
 kind: Pod
 metadata:
