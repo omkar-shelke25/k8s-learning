@@ -10,7 +10,7 @@ Understanding these factors aids in selecting an appropriate deployment strategy
 
 - **Canary Releases:** Deploys the new version to a small subset of users before rolling it out to the entire user base, allowing for monitoring and quick rollback if issues arise. 
 
-By carefully evaluating the business use case, error budget, and application architecture, organizations can choose a deployment strategy that aligns with their operational goals and risk tolerance. 
+
 ---
 
 ### Types of Deployment Strategies
