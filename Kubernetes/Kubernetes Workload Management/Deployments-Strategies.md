@@ -1,0 +1,128 @@
+### Kubernetes Deployment Strategies
+
+#### Factors Affecting Deployment Strategies:
+1. **Business Use Case**: The deployment approach depends on the organization's specific needs and priorities.
+2. **Error Budget**: Defines the acceptable level of risk for deployment failures.
+3. **Application Architecture**: The design and structure of the application influence the strategy selection.
+
+---
+
+### Types of Deployment Strategies
+
+#### 1. Red-Black Deployment
+- **Overview**:
+  - The original version is the "red" environment.
+  - The updated version is the "black" environment.
+
+- **Process**:
+  1. The red environment runs the current application version, handling all user traffic.
+  2. A nearly identical black environment is created, containing the updated version.
+  3. Initially, users remain on the red environment.
+  4. User traffic is gradually or fully switched to the black environment, ensuring no downtime.
+
+- **Benefits**:
+  - Users experience a seamless transition.
+  - Rollbacks are straightforward by redirecting traffic back to the red environment.
+
+#### 2. Blue-Green Deployment
+- **Overview**:
+  - Similar to Red-Black but uses "blue" for the old version and "green" for the new version.
+
+- **Key Difference**:
+  - Blue-Green often uses partial traffic redirection for load balancing and testing the new version.
+  - Red-Black typically switches entirely between environments.
+
+- **Rollback**:
+  - Traffic can quickly revert to the blue (old) environment if issues arise.
+
+- **Disadvantages**:
+  - Requires maintaining two identical environments, which can be resource-intensive.
+  - Rollbacks can be problematic if non-backward-compatible changes are introduced.
+
+#### 3. Rolling Update
+- **Overview**:
+  - Suitable for applications with multiple instances.
+  - Gradually replaces old instances with new ones to ensure continuous availability.
+
+- **Process**:
+  1. Create a new instance with the updated version.
+  2. Add the new instance to the application pool.
+  3. Remove an old instance.
+  4. Repeat until all instances are updated.
+
+- **Advantages**:
+  - Supports interoperability between old and new versions.
+  - Allows parameterization to control the number of instances updated simultaneously.
+
+- **Considerations**:
+  - Not ideal for single-instance applications.
+  - Requires thorough testing during the update.
+
+#### 4. Canary Deployment
+- **Overview**:
+  - Deploy updates incrementally to a small subset of users.
+
+- **Process**:
+  1. Begin with a small percentage of users receiving the update.
+  2. Test the updated version to ensure functionality.
+  3. Gradually increase the user base (e.g., 25%, 50%, 75%, 100%).
+
+- **Benefits**:
+  - Reduces risk by limiting initial exposure to potential issues.
+  - Allows targeted testing with specific user groups.
+
+- **Challenges**:
+  - More complex to implement than Blue-Green due to traffic segmentation.
+  - Database changes must be backward-compatible to avoid issues.
+
+#### 5. Recreate Deployment Strategy
+- **Overview**:
+  - The simplest strategy where the old version is stopped, and the new version is created.
+
+- **Process**:
+  1. Shut down the old application version.
+  2. Start the new version.
+
+- **Advantages**:
+  - Easy to set up and manage.
+  - New version is available to all users immediately.
+
+- **Drawbacks**:
+  - Causes downtime during the transition.
+  - Rolling back requires stopping the new version and recreating the old one.
+
+---
+
+### Kubernetes Deployment Configuration
+
+#### Deployment Strategies
+- **Specification**: `.spec.strategy` defines how Pods are replaced.
+  - **Types**:
+    - `Recreate`: Terminates all old Pods before creating new ones.
+    - `RollingUpdate` (default): Updates Pods incrementally.
+
+#### Rolling Update Configuration
+- **Parameters**:
+  1. **Max Unavailable**:
+     - Specifies the maximum number of Pods that can be unavailable during updates.
+     - Can be an absolute number (e.g., 5) or a percentage (e.g., 10%).
+     - Default: 25%.
+  2. **Max Surge**:
+     - Specifies the maximum number of extra Pods that can be created during updates.
+     - Can be an absolute number or a percentage.
+     - Default: 25%.
+
+- **Examples**:
+  - Setting `maxUnavailable` to 30% ensures at least 70% of Pods are available during updates.
+  - Setting `maxSurge` to 30% allows up to 130% of the desired Pods during updates.
+
+---
+
+### Summary
+- **Red-Black and Blue-Green** strategies provide high availability but require significant resources.
+- **Rolling Updates** offer gradual deployment and reduced downtime.
+- **Canary Deployments** minimize risks by testing updates incrementally.
+- **Recreate Deployment** is simple but involves downtime.
+
+Each strategy has its use cases and trade-offs, and the choice depends on business needs, error tolerance, and application architecture.
+
