@@ -63,8 +63,8 @@ Kubernetes provides built-in APIs that help manage workloads efficiently. Instea
          - Returns DNS records mapped to individual Pod IPs, not the Service IP.  
          - Essential for maintaining stable network identities for stateful applications.
       - **StatefulSet Template**  
-       - A template used to define the desired state of StatefulSet-managed Pods.  
-       - Includes specifications for Pod configuration, container images, resource requirements, and volume mounts.  
+          - A template used to define the desired state of StatefulSet-managed Pods.  
+          - Includes specifications for Pod configuration, container images, resource requirements, and volume mounts.  
 
 
 
