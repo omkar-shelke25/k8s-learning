@@ -131,4 +131,3 @@ Cluster
 
 ---
 
-This should clear up the differences and allow you to better understand how **port** and **containerPort** work in **Kubernetes**. Let me know if you need more details!
