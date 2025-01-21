@@ -1,6 +1,8 @@
 ### **Understanding Kubernetes Services in Simple Terms**
 
-A **Service** in Kubernetes acts like a middleman. It ensures your application parts (like your website frontend and its backend) can talk to each other without worrying about the backend’s location or IP address changing.
+ - When using a Kubernetes service, each pod is assigned an IP address. As this address may not be directly knowable, the service provides accessibility, then automatically connects the correct pod.
+
+- A **Service** in Kubernetes acts like a middleman. It ensures your application parts (like your website frontend and its backend) can talk to each other without worrying about the backend’s location or IP address changing.
 
 #### **Why Services?**
 - Pods (containers in Kubernetes) are temporary. They can disappear and get replaced, and their IP addresses change.
