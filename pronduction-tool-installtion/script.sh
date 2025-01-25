@@ -27,12 +27,7 @@ echo "Installing bat..."
 sudo apt install -y bat
 
 # Install kube-linter
-echo "Installing kube-linter..."
-KUBE_LINTER_VERSION=$(curl -s https://api.github.com/repos/stackrox/kube-linter/releases/latest | grep tag_name | cut -d '"' -f 4)
-curl -LO "https://github.com/stackrox/kube-linter/releases/download/${KUBE_LINTER_VERSION}/kube-linter-${KUBE_LINTER_VERSION}-linux-amd64.tar.gz"
-tar -xvf "kube-linter-${KUBE_LINTER_VERSION}-linux-amd64.tar.gz"
-sudo mv kube-linter /usr/local/bin/
-rm "kube-linter-${KUBE_LINTER_VERSION}-linux-amd64.tar.gz"
+go install golang.stackrox.io/kube-linter/cmd/kube-linter@latest
 
 # Install k9s
 echo "Installing k9s..."
