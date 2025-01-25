@@ -47,8 +47,9 @@ rm trivy.tar.gz
 # Verify installations
 echo "Verifying installations..."
 kubectl version --client
-bat --version
-kube-linter version
+#bat --version
+batcat --version
+#kube-linter version
 k9s version
 trivy --version
 
