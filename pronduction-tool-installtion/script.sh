@@ -53,7 +53,7 @@ k9s version
 trivy --version
 
 sudo apt install fzf
-source /usr/share/doc/fzf/examples/key-bindings.zsh
+source /usr/share/doc/fzf/examples/key-bindings.bash
 source ~/.bashrc
 
 echo "All tools installed successfully!"
