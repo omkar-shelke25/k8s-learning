@@ -27,7 +27,7 @@ echo "Installing bat..."
 sudo apt install -y bat
 
 # Install kube-linter
-go install golang.stackrox.io/kube-linter/cmd/kube-linter@latest
+#go install golang.stackrox.io/kube-linter/cmd/kube-linter@latest
 
 # Install k9s
 echo "Installing k9s..."
