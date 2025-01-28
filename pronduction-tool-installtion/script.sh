@@ -10,6 +10,7 @@ usage() {
     exit 1
 }
 
+
 # Update and install prerequisites
 echo "Updating system and installing prerequisites..."
 sudo apt update -y
@@ -52,6 +53,8 @@ batcat --version
 #kube-linter version
 k9s version
 trivy --version
+alias bat="batcat"
+
 
 sudo apt install fzf
 source /usr/share/doc/fzf/examples/key-bindings.bash
