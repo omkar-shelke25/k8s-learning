@@ -1,4 +1,4 @@
-###Understanding Kubernetes Service Accounts and Context Configuration
+### Understanding Kubernetes Service Accounts and Context Configuration
 
 When working with Kubernetes, managing authentication and contexts is crucial for efficient cluster administration. The commands shared demonstrate the process of creating a **ServiceAccount**, generating a token for it, and configuring a context for seamless interaction with the cluster. Let’s break down what each command does and its purpose.
 
