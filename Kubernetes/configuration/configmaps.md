@@ -190,8 +190,7 @@ spec:
 ```
 
 ConfigMaps provide a flexible and efficient way to manage application configurations in Kubernetes, making deployments more portable and maintainable.
-
-Yes, **`envFrom`** also requires a **pod restart** for ConfigMap updates to take effect.  
+---
 
 # 🔴 **Why Does `envFrom` Require a Pod Restart?**  
 - When a pod starts, Kubernetes **loads all key-value pairs from the ConfigMap** into environment variables.  
