@@ -190,6 +190,7 @@ spec:
 ```
 
 ConfigMaps provide a flexible and efficient way to manage application configurations in Kubernetes, making deployments more portable and maintainable.
+
 ---
 
 # 🔴 **Why Does `envFrom` Require a Pod Restart?**  
