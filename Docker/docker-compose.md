@@ -1,4 +1,4 @@
-# **Deep Dive into Docker Compose: Parameters, Commands, and Diagrams**
+# **Deep Dive into Docker Compose **
 
 
 
