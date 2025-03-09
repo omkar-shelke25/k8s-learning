@@ -114,7 +114,7 @@
 ## 5. Architecture Diagram
 
 Below is a diagram that illustrates the architecture and flow of a GitLab CI/CD pipeline using shared runners:
-
+``` markdown
 +---------------------------+
 | Developer Pushes Code     |
 +-------------+-------------+
@@ -173,7 +173,7 @@ Below is a diagram that illustrates the architecture and flow of a GitLab CI/CD 
 | Display Pipeline Results  |
 | in GitLab UI              |
 +---------------------------+
-
+```
 
 **Diagram Explanation:**
 - **Push to Repository:** Code changes trigger the CI/CD pipeline.
