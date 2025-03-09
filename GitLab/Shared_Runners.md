@@ -115,23 +115,65 @@
 
 Below is a diagram that illustrates the architecture and flow of a GitLab CI/CD pipeline using shared runners:
 
-```mermaid
-graph LR
-  A[Developer Pushes Code] --> B[GitLab Repository]
-  B --> C[Pipeline Triggered]
-  C --> D[Scheduler & Runner Selector]
-  D --> E[Job Tag Matching]
-  E --> F1[Linux Shared Runner]
-  E --> F2[Windows Shared Runner]
-  E --> F3[macOS Shared Runner (Beta)]
-  F1 --> G1[Job Execution on Linux VM]
-  F2 --> G2[Job Execution on Windows VM]
-  F3 --> G3[Job Execution on macOS VM]
-  G1 --> H[Collect Job Logs]
-  G2 --> H
-  G3 --> H
-  H --> I[Display Pipeline Results in GitLab UI]
-```
++---------------------------+
+| Developer Pushes Code     |
++-------------+-------------+
+              |
+              v
++---------------------------+
+| GitLab Repository         |
++-------------+-------------+
+              |
+              v
++---------------------------+
+| Pipeline Triggered        |
++-------------+-------------+
+              |
+              v
++---------------------------+
+| Scheduler & Runner        |
+| Selector                  |
++-------------+-------------+
+              |
+              v
++---------------------------+
+| Job Tag Matching          |
++-------------+-------------+
+              |
+              v
++---------------------------+
+| Select Appropriate Runner |
++------+------+-------------+
+       |      |      
+       |      |      
+       v      v      
++------------+  +-------------+
+| Linux      |  | Windows     |
+| Shared     |  | Shared      |
+| Runner     |  | Runner      |
++-----+------+  +------+------+
+       |               |
+       v               v
++------------+  +-------------+
+| Job Exec   |  | Job Exec    |
+| on Linux   |  | on Windows  |
+| VM         |  | VM          |
++-----+------+  +------+------+
+       \              /
+        \            /
+         \          /
+          \        /
+           v      v
++---------------------------+
+|   Collect Job Logs        |
++-------------+-------------+
+              |
+              v
++---------------------------+
+| Display Pipeline Results  |
+| in GitLab UI              |
++---------------------------+
+
 
 **Diagram Explanation:**
 - **Push to Repository:** Code changes trigger the CI/CD pipeline.
