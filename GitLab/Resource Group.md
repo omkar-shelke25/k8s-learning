@@ -1,6 +1,3 @@
-Below, I’ll provide a detailed explanation of resource groups in GitLab CI/CD, focusing on their purpose, how they control job concurrency, and the concepts involved. I’ll use examples to illustrate each point and break it down step by step, as requested in the query. Let’s dive in!
-
----
 
 ## Understanding Pipelines and Concurrency in GitLab CI/CD
 
@@ -241,4 +238,4 @@ deploy_job:
 
 ---
 
-This covers the concepts of resource groups in depth, with examples to illustrate how they control job concurrency in GitLab CI/CD pipelines. Let me know if you’d like further clarification!
+
