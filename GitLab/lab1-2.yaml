@@ -1,0 +1,71 @@
+workflow:
+   name: Lab 2
+   rules:
+     - if: $CI_COMMIT_BRANCH == "main"
+       when: always
+     - if: $CI_PIPELINE_SOURCE == "merge_request_event"
+       changes:
+          paths: 
+            - "README.md"
+       when: always
+stages:
+   - build
+   - test
+   - docker
+   - deploy
+
+variables:
+   USERNAME: "dockerUsername"
+   REGISTRY: docker.io/$USERNAME
+   IMAGE: lab2-demo-image
+   VERSION: $CI_PIPELINE_ID
+build_file:
+   stage: build
+   image: ruby:2.7
+   before_script:
+      - gem install cowsay
+   script:
+      - >
+         cowsay -f dragon "Run for cover, 
+         I am a DRAGON....RAWR" >> dragon.txt
+   artifacts:
+      name: Dragon Text File
+      paths:
+         - dragon.txt
+      when: on_success
+      expire_in: 30 days
+
+test_file:
+   stage: test
+   script:
+      - |
+         grep -i "dragon" dragon.txt
+
+docker_build:
+    stage: docker
+    script:
+      - echo "docker build -t docker.io/$USERNAME/$IMAGE:$VERSION"
+
+docker_testing:
+    stage: docker
+    needs:
+       - docker_build
+    script:
+      - echo "docker run -p 80:80 docker.io/$USERNAME/$IMAGE:$VERSION" 
+
+docker_push:
+    stage: docker
+    needs:
+       - docker_testing
+    script:
+      - echo "docker login --username=dockerUsername --password=$DOCKER_PASSWORD"
+      - echo "docker push docker.io/$USERNAME/$IMAGE:$VERSION" 
+
+deploy_ec2:
+   stage: deploy
+   dependencies:
+      - build_file
+   script:
+      - cat dragon.txt
+      - echo "deploying ... .. ."
+      - echo "Username - $USERNAME and Password - $PASSWORD"
