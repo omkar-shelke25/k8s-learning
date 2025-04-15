@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql-app
+  namespace: database-applications
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mysql-app
+  template:
+    metadata:
+      labels:
+        app: mysql-app
+    spec:
+      initContainers:
+      - name: init-mysql
+        image: registry.ocp4.example.com:8443/redhattraining/mysql-app:v1
+        command: ["/bin/bash", "-c", "mysql -uredhat -predhat123 </tmp/world_x.sql"]
+        env:
+        - name: MYSQL_USER
+          value: "redhat"
+        - name: MYSQL_PASSWORD
+          value: "redhat123"
+        - name: MYSQL_DATABASE
+          value: "world_x"
+      containers:
+      - name: mysql-app
+        image: registry.ocp4.example.com:8443/redhattraining/mysql-app:v1
+        env:
+        - name: MYSQL_USER
+          value: "redhat"
+        - name: MYSQL_PASSWORD
+          value: "redhat123"
+        - name: MYSQL_DATABASE
+          value: "world_x"
