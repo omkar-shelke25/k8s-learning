@@ -1,4 +1,3 @@
-To address your request, I'll provide a **single Docker Compose file** for a **localhost-only** setup, configured to work with `VITE_BACKEND_URL=http://localhost:49152` for the client, using non-guessable ports (`49152` for the server, `49153` for the client) and no environment variables (hardcoded in Dockerfiles). The file will include detailed comments explaining the use of `localhost` (resolving to `127.0.0.1`) and internal container IP addresses (e.g., within the Docker network). I'll also include the **supporting Dockerfiles** for the `server` and `client`, ensuring a secure setup with `node:22-alpine`, non-root users, restrictive permissions, health checks, and the maintainer "Omkar Shelke <omkar.shelke@proton.me>".
 
 ### Key Requirements:
 - **Localhost Only**:
