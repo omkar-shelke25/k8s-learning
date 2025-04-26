@@ -325,15 +325,6 @@ spec:
 
 ---
 
-## 🖼️ Visual Icons to Remember
-| Icon | Operation | Description |
-|:-----|:----------|:------------|
-| ✏️ | Replace | Update an existing key |
-| ➕ | Add | Insert a new key |
-| ❌ | Remove | Delete a key |
-
----
-
 ## 🔧 Applying and Verifying Patches
 **Directory**:
 ```
@@ -435,7 +426,4 @@ Kustomize patches—JSON 6902 and Strategic Merge—offer powerful ways to updat
 - **Strategic Merge**: Simple, readable updates with YAML.
 - **Scalability**: Use overlays and patches for complex setups.
 
-**Next Steps**:
-- Test patches in a local cluster (e.g., Minikube).
-- Combine with `commonLabels` or `images` transformers.
-- Explore `labelSelector` for dynamic patching.
+
