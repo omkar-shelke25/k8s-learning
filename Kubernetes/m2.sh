@@ -1,5 +1,7 @@
 #!/bin/bash
 
+set -e
+
 # MongoDB password
 MONGO_PASSWORD="microPass123"
 
@@ -7,7 +9,29 @@ MONGO_PASSWORD="microPass123"
 mkdir -p k8s-manifests
 cd k8s-manifests
 
-echo "🔧 Generating Kubernetes manifests..."
+echo "🔧 Step 1: Installing MongoDB Kubernetes Operator..."
+
+# Create namespace if not exists
+kubectl get ns mongodb >/dev/null 2>&1 || kubectl create namespace mongodb
+
+# Install MongoDB Operator
+kubectl apply -k "https://github.com/mongodb/mongodb-kubernetes-operator/config/crd?ref=v0.7.6"
+kubectl apply -k "https://github.com/mongodb/mongodb-kubernetes-operator/config/rbac?ref=v0.7.6"
+kubectl apply -k "https://github.com/mongodb/mongodb-kubernetes-operator/config/manager?ref=v0.7.6"
+
+# Wait for operator pod to be ready
+echo "⏳ Waiting for MongoDB Operator to be ready..."
+kubectl wait --for=condition=Available=True deployment/mongodb-kubernetes-operator -n mongodb --timeout=60s
+
+# Install local-path provisioner if not present
+if ! kubectl get sc | grep -q 'local-path'; then
+  echo "📦 Installing local-path provisioner..."
+  kubectl apply -f https://raw.githubusercontent.com/rancher/local-path-provisioner/master/deploy/local-path-storage.yaml
+fi
+
+echo "✅ MongoDB Operator and local-path provisioner set up."
+
+echo "🔧 Step 2: Generating Kubernetes manifests..."
 
 # 1. Namespace
 cat <<EOF > namespace.yaml
