@@ -16,7 +16,7 @@ Below are example `curl` commands to test the microservices application (`User S
 
 2. **Create User - User Service**
    ```bash
-   curl -X POST http://localhost:8001/users/ -H "Content-Type: application/json" -d '{"name":"John Doe","email":"john@example.com"}'
+   curl -X POST http://10.97.199.253:8001/users/ -H "Content-Type: application/json" -d '{"name":"John Doe","email":"john@example.com"}'
    ```
    **Expected**: `{"_id":"user_id","name":"John Doe","email":"john@example.com"}` (replace `user_id` with actual ID)
    ```json
@@ -39,7 +39,7 @@ Below are example `curl` commands to test the microservices application (`User S
 4. **Create Order - Order Service**
    - Use the `<user_id>` from the user creation response above.
    ```bash
-   curl -X POST http://localhost:8002/orders/ -H "Content-Type: application/json" -d '{"user_id":"user_id","product":"Laptop","amount":999.99}'
+   curl -X POST http://10.109.15.149:8002/orders/ -H "Content-Type: application/json" -d '{"user_id":"684a4bda16dda24edb3a9b91","product":"Laptop","amount":999.99}'
    ```
    - **Expected**: `{"_id":"order_id","user_id":"user_id":"...","product":"Laptop","amount":999.99}`
      ```json
@@ -63,7 +63,7 @@ Below are example `curl` commands to test the microservices application (`User S
 6. **Create Payment - Payment Service**
    - Use the `<order_id>` from the order creation response above.
    ```bash
-   curl -X POST http://localhost:8003/payments/ -H "Content-Type: application/json" -d '{"order_id":"order_id","amount":999.99,"status":"pending"}'
+   curl -X POST http://payment-microservice-service.default.svc.cluster.local:8003/payments/ -H "Content-Type: application/json" -d '{"order_id":"684a4c22628bab847bc7cd9f","amount":999.99,"status":"pending"}'
    ```
    **Expected**: `{"_id":"payment_id","order_id":"...","amount":999.99,"status":"pending"}`
    ```json
