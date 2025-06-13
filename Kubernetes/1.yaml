@@ -1,22 +1,8 @@
 ---
-# Default deny all traffic in the mongo namespace
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
-  name: default-deny-all
-  namespace: mongo
-spec:
-  podSelector: {}
-  policyTypes:
-    - Ingress
-    - Egress
-
----
-# Allow API to MongoDB communication in the mongo namespace
-apiVersion: networking.k8s.io/v1
-kind: NetworkPolicy
-metadata:
-  name: mongodb-network-policy
+  name: allow-api-to-mongodb
   namespace: mongo
 spec:
   podSelector:
@@ -41,31 +27,26 @@ spec:
       ports:
         - protocol: TCP
           port: 27017
-
+    - to:
+        - namespaceSelector:
+            matchLabels:
+              kubernetes.io/metadata.name: kube-system
+          podSelector:
+            matchLabels:
+              k8s-app: kube-dns
+      ports:
+        - protocol: UDP
+          port: 53
+        - protocol: TCP
+          port: 53
 ---
-# Default deny all traffic in the api namespace
-apiVersion: networking.k8s.io/v1
-kind: NetworkPolicy
-metadata:
-  name: default-deny-all
-  namespace: api
-spec:
-  podSelector: {}
-  policyTypes:
-    - Ingress
-    - Egress
-
----
-# Allow egress from API to MongoDB and DNS in the api namespace
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
   name: allow-egress-to-mongodb-and-dns
   namespace: api
 spec:
-  podSelector:
-    matchLabels:
-      app: api
+  podSelector: {}
   policyTypes:
     - Egress
   egress:
