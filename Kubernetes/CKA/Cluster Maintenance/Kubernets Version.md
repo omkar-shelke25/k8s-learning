@@ -330,6 +330,4 @@ While the lecture notes that upgrades will be covered later, here’s a brief ov
 - **End-of-Life (EOL)**: Older versions (e.g., 1.11.x) become unsupported after ~12 months, requiring upgrades to stay secure.
 - **Custom Builds**: Advanced users can build Kubernetes from source for custom patches, but this is rare in production.
 
--
-a
-  (e.g., upgrading a cluster, configuring feature gates), or assistance with a particular Kubernetes task, let me know!
+
