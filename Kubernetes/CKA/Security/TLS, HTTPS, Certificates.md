@@ -1,5 +1,3 @@
-
-
 # Deep Dive into TLS, HTTPS, Certificates, and PKI (Enhanced)
 
 This guide explores how **TLS**, **HTTPS**, **digital certificates**, and **Public Key Infrastructure (PKI)** work together to secure the internet, protect against phishing, and establish trust. We'll break down complex concepts, provide real-world examples, and include a visual chart to clarify certificate types.
