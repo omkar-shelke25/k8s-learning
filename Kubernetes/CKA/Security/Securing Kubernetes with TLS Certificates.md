@@ -65,10 +65,7 @@ These components are designed to receive connections and therefore require **ser
     *   **Purpose**: The ETCD server certificate secures communication with its clients, primarily the Kube API Server. Given the critical nature of the data stored in ETCD, securing this communication is paramount to prevent unauthorized access or data tampering.
 
 3.  **Kubelet**:
-    *   **Role**: Kubelet is the agent that runs on each worker node in the Kubernetes cluster. It ensures that containers are running in a Pod. Kubelet communicates with the Kube API Server to receive instructions (e.g., 
-
-
-what pods to run) and to report the status of the node and its pods. It also exposes its own HTTPS API for the API Server to connect to for certain operations (e.g., fetching logs, executing commands in pods).
+    *   **Role**: Kubelet is the agent that runs on each worker node in the Kubernetes cluster. It ensures that containers are running in a Pod. Kubelet communicates with the Kube API Server to receive instructions (e.g., what pods to run) and to report the status of the node and its pods. It also exposes its own HTTPS API for the API Server to connect to for certain operations (e.g., fetching logs, executing commands in pods).
     *   **Certificates**: It uses `kubelet.crt` and `kubelet.key`.
     *   **Purpose**: The Kubelet server certificate secures its HTTPS endpoint, allowing the Kube API Server to securely connect to it. This ensures that the communication channel for critical operations like log retrieval and command execution is encrypted and authenticated.
 
