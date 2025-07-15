@@ -1,4 +1,5 @@
 
+
 # Deep Dive into TLS, HTTPS, Certificates, and PKI
 
 ---
@@ -200,7 +201,7 @@ Certificates and keys are stored in files with standard extensions:
 ## 11. Diagram: HTTPS Handshake and Certificate Validation
 Below is a **Mermaid sequence diagram** illustrating the HTTPS handshake and certificate validation process.
 
-
+```mermaid
 
 ```mermaid
 sequenceDiagram
@@ -229,7 +230,7 @@ sequenceDiagram
     C<->>S: Encrypted data using symmetric key (e.g., AES)
 ```
 
-
+```
 
 ### Diagram Explanation
 1. **ClientHello**: The client proposes TLS versions and cipher suites.
