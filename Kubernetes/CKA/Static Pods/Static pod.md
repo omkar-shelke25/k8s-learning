@@ -319,14 +319,4 @@ To simulate a control plane setup using static pods on a single node:
 
 ---
 
-## 📄 Exporting Notes
-
-To provide these notes in a downloadable format:
-- **Markdown**: I can generate a `.md` file with the content above. Let me know if you’d like me to share it (you can copy-paste the response into a `.md` file).
-- **PDF**: Since I can’t directly generate PDFs, I recommend copying the Markdown content into a tool like `pandoc` or an online Markdown-to-PDF converter.
-  - Example command with `pandoc`:
-    ```bash
-    pandoc static-pods-notes.md -o static-pods-notes.pdf
-    ```
-
----
+#
