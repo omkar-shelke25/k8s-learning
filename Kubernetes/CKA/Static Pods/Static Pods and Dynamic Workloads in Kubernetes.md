@@ -302,12 +302,3 @@ kubectl get pods -n kube-system | grep nginx-daemonset
   ```
 
 ---
-
-## ❓ Next Steps
-Let me know if you need:
-- A deeper dive into a specific manifest (e.g., Flannel’s YAML).
-- Help with a multi-node setup.
-- More examples of static pods or DaemonSets.
-- Clarification on any specific step or concept.
-
-These notes simplify the process, emphasize the sequence, and provide hands-on steps to recreate the setup. I hope this clears up the confusion!
