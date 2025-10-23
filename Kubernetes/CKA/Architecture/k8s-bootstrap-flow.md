@@ -94,14 +94,3 @@
 ```
 
 ---
-
-### 💡 Key Flow Summary
-
-| Stage | Type                | Created By                   | Description                                      |
-| ----- | ------------------- | ---------------------------- | ------------------------------------------------ |
-| 1–3   | **Static Pods**     | `kubeadm` → `kubelet`        | Bring up the control plane components            |
-| 4     | —                   | `kubelet` detects API server | kubelet registers node → cluster officially "up" |
-| 5     | **Static Pods**     | kubelet                      | Controller-manager & scheduler become active     |
-| 6–7   | **Dynamic Pods**    | kubeadm + controller-manager | CoreDNS, kube-proxy, CNIs created & managed      |
-| 8     | ✅ Fully Operational | —                            | Scheduler handles user workloads                 |
-
