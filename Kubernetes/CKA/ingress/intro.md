@@ -131,7 +131,7 @@ Browser
 * It doesn’t process HTTP traffic itself.
 * It just acts as a **control-plane agent**.
 
-2️⃣ The controller **watches** for changes in all:
+2️⃣ The ingress controller **watches** for changes in all:
 
 * `Ingress`
 * `Service`
