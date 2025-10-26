@@ -90,6 +90,16 @@ An **Ingress Controller**:
 > Ingress Resource → desired routes
 > Ingress Controller → applies those routes to actual load balancer
 
+
+### How work it
+
+- The Ingress Controller runs inside the Kubernetes cluster and watches for any new or updated Ingress, Service, or Secret resources.
+- When an Ingress is created, the Ingress Controller sends a request—through the Kubernetes Service and cloud integration—to the cloud provider’s API, asking it to provision a Layer 7 (L7) LoadBalancer.
+- If a Cloud LoadBalancer (L7) is available, the Ingress Controller shares the Ingress configuration and routing rules with it. The controller continuously monitors these resources for any changes within the cluster.
+- Whenever an update occurs—such as a new path, hostname, or TLS configuration—the Ingress Controller automatically synchronizes these changes with the Cloud L7 LoadBalancer.
+- As a result, the Cloud L7 LoadBalancer always has the latest routing rules (shared by the Ingress Controller) and can route traffic directly to the backend Services or Pods, without passing through the Ingress Controller Service inside the cluster.
+- This L7-to-L7 communication (Ingress Controller → Cloud L7 LoadBalancer) happens only in cloud-native environments like AWS, GCP, or Azure.
+- It does not occur with in-cluster controllers such as NGINX, Traefik, or HAProxy, because those controllers handle L7 routing internally within the cluster, using a Layer 4 (TCP) LoadBalancer for incoming traffic.
 ---
 
 ## 🔹 6. Two Major Ingress Types
