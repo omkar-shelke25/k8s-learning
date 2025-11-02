@@ -356,62 +356,10 @@ egress:
 > Deny-all policies prevent any connections from being established in the first place, so you must explicitly define both ingress and egress rules to allow communication. Statefulness doesn't override policy decisions—it operates within them."**
 
 
-
 > When you apply deny-all NetworkPolicies, you must explicitly define both ingress and egress rules for bidirectional communication, similar to stateless firewalls. However, this doesn't mean  NetworkPolicies become stateless. The statefulness is still there—connection tracking still works—but deny-all prevents connections from being established in the first place, so there's nothing for the stateful mechanism to track. You need both directions allowed at the policy level for a connection to complete, after which statefulness takes over and handles the rest automatically."
 
-### Why It FEELS Stateless
-- BehaviorStateless FirewallNetworkPolicy with Deny-AllNeed outbound rule✅ Yes✅ Yes (egress policy)
-- Need inbound rule✅ Yes✅ Yes (ingress policy)
-- Need reply rule✅ Yes✅ Yes (egress from destination)
-- Return traffic auto?❌ No✅ Yes (once connection established)Tracks connections?❌ No✅ Yes
-- The Difference:
-    - Stateless: Every packet evaluated independently, no tracking
-    - NetworkPolicy with deny-all: Must allow connection setup at policy level, then tracking takes over
 
----
 
-## 🧩 11. Visual Decision Tree
-
-```
-User attempts connection A → B
-           ↓
-    ┌──────────────────┐
-    │ Egress allowed   │
-    │ from A?          │
-    └────┬────────┬────┘
-         ↓        ↓
-       YES       NO → ❌ BLOCKED
-         ↓
-    ┌──────────────────┐
-    │ Ingress allowed  │
-    │ to B?            │
-    └────┬────────┬────┘
-         ↓        ↓
-       YES       NO → ❌ BLOCKED
-         ↓
-    ┌──────────────────┐
-    │ Connection       │
-    │ Established      │
-    │ ✅ Tracked        │
-    └────┬─────────────┘
-         ↓
-    ┌──────────────────┐
-    │ Egress allowed   │
-    │ from B?          │
-    └────┬────────┬────┘
-         ↓        ↓
-       YES       NO → ❌ BLOCKED (reply fails)
-         ↓
-    ┌──────────────────┐
-    │ Reply traffic    │
-    │ ✅ Auto-allowed   │
-    │ (stateful)       │
-    └──────────────────┘
-         ↓
-    ✅ SUCCESS: Full communication works
-```
-
----
 
 ## 🧠 12. Common Misconceptions Debunked
 
