@@ -101,7 +101,7 @@ Result: Both rules needed for HTTP to work
 
 ### ⚠️ CRITICAL CORRECTION
 
-**The original document contains a significant error. Here's the truth:**
+
 
 ### Kubernetes NetworkPolicies Are ALWAYS Stateful
 
